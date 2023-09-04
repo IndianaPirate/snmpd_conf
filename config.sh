@@ -16,11 +16,8 @@ function install_snmp_distro_debian() {
 	echo "[+] UPDATE"
 	apt update -y >/dev/null
 	echo "[+] INSTALL SNMP"
-	apt install snmp -y >/dev/null
-	if [ $? == 0 ]
+	if ! apt install snmp -y >/dev/null
 	then
-		echo "[+] Installation success"
-	else
 		echo "[-] Installation failed"
 	fi
 }
