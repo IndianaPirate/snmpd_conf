@@ -24,14 +24,22 @@ function install_snmp_distro_debian() {
 	fi
 }
 function configure_snmp() {
-	mv /etc/snmp/snmpd.conf /etc/snmp/snmp/snmpd.conf.bak | true
-	echo "rocommunity public" >> /etc/snmp/snmpd.conf
+	mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.bak | true
+	echo "rocommunity public" > /etc/snmp/snmpd.conf
 	echo "master  agentx" >> /etc/snmp/snmpd.conf
 	echo "agentaddress 127.0.0.1,$IPADD,[::1]" >> /etc/snmp/snmpd.conf
 	echo "view   systemonly  included   .1.3.6.1.2.1.1" >> /etc/snmp/snmpd.conf
 	echo "view   systemonly  included   .1.3.6.1.2.1.25.1" >> /etc/snmp/snmpd.conf
 	echo "includeDir /etc/snmp/snmpd.conf.d" >> /etc/snmp/snmpd.conf
 }
+function restart_snmp() {
+	echo "[+] START SNMP"
+	systemctl enable snmpd --now > /dev/null
+	systemctl restart snmpd > /dev/null
+	systemctl status snmpd
+}
+
 get_ipaddress
 install_snmp_distro_debian
 configure_snmp
+restart_snmp
