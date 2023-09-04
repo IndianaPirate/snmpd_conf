@@ -25,7 +25,7 @@ function install_snmp_distro_debian() {
 }
 function configure_snmp() {
 	echo "[+] CONFIGURE SNMP"
-	mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.bak | true
+	mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.bak || true
 	echo "rocommunity public" > /etc/snmp/snmpd.conf
 	echo "master  agentx" >> /etc/snmp/snmpd.conf
 	echo "agentaddress 127.0.0.1,$IPADD,[::1]" >> /etc/snmp/snmpd.conf
