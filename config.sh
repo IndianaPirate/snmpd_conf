@@ -13,17 +13,18 @@ function get_ipaddress() {
 }
 
 function install_snmp_distro_debian() {
-	echo "[+] Update"
+	echo "[+] UPDATE"
 	apt update -y >/dev/null
-	echo "[+] Install SNMP"
+	echo "[+] INSTALL SNMP"
 	apt install snmp -y >/dev/null
 	if [ $? == 0 ]; then
-		echo "Installation success"
+		echo "[+] Installation success"
 	else
-		echo "Installation failed"
+		echo "[-] Installation failed"
 	fi
 }
 function configure_snmp() {
+	echo "[+] CONFIGURE SNMP"
 	mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.bak | true
 	echo "rocommunity public" > /etc/snmp/snmpd.conf
 	echo "master  agentx" >> /etc/snmp/snmpd.conf
